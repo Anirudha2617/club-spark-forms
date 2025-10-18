@@ -18,12 +18,20 @@ import { Badge } from '@/components/ui/badge';
 import TopPillNav from '@/components/TopPillNav';
 import { dummyClubs, dummyMessages, dummyPolls, api } from '@/lib/api';
 import { toast } from 'sonner';
+import { ImageUploadDialog } from '@/components/ImageUploadDialog';
+import { CreatePollDialog } from '@/components/CreatePollDialog';
+import { CreateEventDialog } from '@/components/CreateEventDialog';
+import { CreateFormDialog } from '@/components/CreateFormDialog';
 
 const ClubChat = () => {
   const { clubId } = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState(dummyMessages);
+  const [imageDialogOpen, setImageDialogOpen] = useState(false);
+  const [pollDialogOpen, setPollDialogOpen] = useState(false);
+  const [eventDialogOpen, setEventDialogOpen] = useState(false);
+  const [formDialogOpen, setFormDialogOpen] = useState(false);
 
   const club = dummyClubs.find((c) => c.id === clubId);
 
@@ -42,6 +50,27 @@ const ClubChat = () => {
     setMessages([...messages, newMsg]);
     setMessage('');
     toast.success('Message sent');
+  };
+
+  const handleImageUpload = (imageUrl: string) => {
+    toast.success('Image uploaded!');
+    // In a real app, this would send the image as a message
+  };
+
+  const handleCreatePoll = async (question: string, options: string[]) => {
+    await api.createPoll(clubId!, question, options);
+    toast.success('Poll created!');
+    // Refresh messages to show the new poll
+  };
+
+  const handleCreateEvent = async (eventData: any) => {
+    await api.createEvent(clubId!, eventData);
+    toast.success('Event created!');
+  };
+
+  const handleCreateForm = async (formData: any) => {
+    await api.createForm(clubId!, formData);
+    toast.success('Form created!');
   };
 
   return (
@@ -193,6 +222,7 @@ const ClubChat = () => {
                 size="icon"
                 className="rounded-full"
                 title="Attach image"
+                onClick={() => setImageDialogOpen(true)}
               >
                 <ImageIcon className="w-5 h-5" />
               </Button>
@@ -201,6 +231,7 @@ const ClubChat = () => {
                 size="icon"
                 className="rounded-full"
                 title="Create poll"
+                onClick={() => setPollDialogOpen(true)}
               >
                 <BarChart3 className="w-5 h-5" />
               </Button>
@@ -209,6 +240,7 @@ const ClubChat = () => {
                 size="icon"
                 className="rounded-full"
                 title="Create event"
+                onClick={() => setEventDialogOpen(true)}
               >
                 <Calendar className="w-5 h-5" />
               </Button>
@@ -217,6 +249,7 @@ const ClubChat = () => {
                 size="icon"
                 className="rounded-full"
                 title="Add form"
+                onClick={() => setFormDialogOpen(true)}
               >
                 <FileText className="w-5 h-5" />
               </Button>
@@ -241,6 +274,28 @@ const ClubChat = () => {
           </div>
         </div>
       </div>
+
+      {/* Dialogs */}
+      <ImageUploadDialog
+        open={imageDialogOpen}
+        onOpenChange={setImageDialogOpen}
+        onUpload={handleImageUpload}
+      />
+      <CreatePollDialog
+        open={pollDialogOpen}
+        onOpenChange={setPollDialogOpen}
+        onCreatePoll={handleCreatePoll}
+      />
+      <CreateEventDialog
+        open={eventDialogOpen}
+        onOpenChange={setEventDialogOpen}
+        onCreateEvent={handleCreateEvent}
+      />
+      <CreateFormDialog
+        open={formDialogOpen}
+        onOpenChange={setFormDialogOpen}
+        onCreateForm={handleCreateForm}
+      />
     </div>
   );
 };
