@@ -10,22 +10,22 @@ const TopPillNav = () => {
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
-      <div className="glass-elevated rounded-2xl px-2 py-2 shadow-lg glow-primary">
+    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center animate-fade-in pointer-events-none">
+      <div className="glass-elevated rounded-2xl p-1.5 shadow-lg glow-primary pointer-events-auto">
         <div className="flex items-center gap-1">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 ${
+                `flex items-center justify-center gap-2 min-w-[100px] px-4 py-2.5 rounded-xl transition-colors duration-200 ${
                   isActive
                     ? 'bg-primary text-primary-foreground shadow-lg glow-primary'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-surface/50'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
                 }`
               }
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className="w-4 h-4 flex-shrink-0" />
               <span className="font-medium text-sm whitespace-nowrap">{item.label}</span>
             </NavLink>
           ))}
