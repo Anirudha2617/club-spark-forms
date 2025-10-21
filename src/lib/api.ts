@@ -6,6 +6,7 @@ export interface User {
   email: string;
   avatar_url: string;
   bio: string;
+  created_at?: string;
 }
 
 export interface Club {
@@ -20,6 +21,8 @@ export interface Club {
   unread_count?: number;
   last_message?: string;
   last_message_time?: string;
+  category?: string;
+  is_private?: boolean;
 }
 
 export interface Message {
@@ -30,7 +33,10 @@ export interface Message {
   content: string;
   content_json?: any;
   created_at: string;
+  edited_at?: string;
   isPinned?: boolean;
+  reactions?: { emoji: string; users: string[] }[];
+  reply_to?: string;
 }
 
 export interface Poll {
@@ -52,6 +58,7 @@ export interface Event {
   description: string;
   starts_at: string;
   ends_at: string;
+  start_time?: string;
   location: string;
   attendees: { going: number; maybe: number; not_going: number };
   status: 'active' | 'expired';
@@ -66,6 +73,7 @@ export interface Form {
   description: string;
   questions: FormQuestion[];
   response_count: number;
+  response_limit?: number;
   created_at: string;
 }
 
@@ -79,11 +87,12 @@ export interface FormQuestion {
 
 // Dummy current user
 export const currentUser: User = {
-  id: 'user-1',
-  display_name: 'Alex Rivera',
-  email: 'alex@example.com',
-  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex',
-  bio: 'Community enthusiast & event organizer',
+  id: 'current-user',
+  display_name: 'You',
+  email: 'you@example.com',
+  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=CurrentUser',
+  bio: 'That\'s me!',
+  created_at: new Date().toISOString(),
 };
 
 // Dummy clubs data
@@ -100,6 +109,8 @@ export const dummyClubs: Club[] = [
     unread_count: 5,
     last_message: 'Hey everyone! Check out the new AI tools...',
     last_message_time: '2m ago',
+    category: 'Technology',
+    is_private: false,
   },
   {
     id: 'club-2',
@@ -113,6 +124,8 @@ export const dummyClubs: Club[] = [
     unread_count: 12,
     last_message: 'New Figma plugin released!',
     last_message_time: '15m ago',
+    category: 'Design',
+    is_private: false,
   },
   {
     id: 'club-3',
@@ -126,6 +139,8 @@ export const dummyClubs: Club[] = [
     unread_count: 0,
     last_message: 'Funding strategy discussion tomorrow',
     last_message_time: '1h ago',
+    category: 'Business',
+    is_private: true,
   },
   {
     id: 'club-4',
@@ -138,6 +153,8 @@ export const dummyClubs: Club[] = [
     member_count: 326,
     last_message: 'Morning run at 6am!',
     last_message_time: '3h ago',
+    category: 'Fitness',
+    is_private: false,
   },
 ];
 
@@ -157,6 +174,10 @@ export const dummyMessages: Message[] = [
     content: 'Hey everyone! Just discovered this amazing new AI tool for code review. Has anyone tried GitHub Copilot X yet?',
     created_at: '2024-01-15T10:30:00Z',
     isPinned: true,
+    reactions: [
+      { emoji: '👍', users: ['current-user', 'user-3'] },
+      { emoji: '🎉', users: ['user-4'] },
+    ],
   },
   {
     id: 'msg-2',
@@ -177,11 +198,39 @@ export const dummyMessages: Message[] = [
       bio: '',
     },
     type: 'poll',
-    content: 'What\'s your preferred programming language?',
+    content: '',
     content_json: {
       poll_id: 'poll-1',
     },
     created_at: '2024-01-15T11:00:00Z',
+  },
+  {
+    id: 'msg-4',
+    club_id: 'club-1',
+    sender: {
+      id: 'user-2',
+      display_name: 'Sarah Chen',
+      email: 'sarah@example.com',
+      avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+      bio: '',
+    },
+    type: 'event',
+    content: '',
+    content_json: {
+      event_id: 'event-1',
+    },
+    created_at: '2024-01-15T11:30:00Z',
+  },
+  {
+    id: 'msg-5',
+    club_id: 'club-1',
+    sender: currentUser,
+    type: 'form',
+    content: '',
+    content_json: {
+      form_id: 'form-1',
+    },
+    created_at: '2024-01-15T12:00:00Z',
   },
 ];
 
@@ -301,6 +350,7 @@ export const dummyForms: Form[] = [
       },
     ],
     response_count: 42,
+    response_limit: 100,
     created_at: '2024-01-15T12:00:00Z',
   },
 ];
