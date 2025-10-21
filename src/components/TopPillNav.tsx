@@ -20,13 +20,13 @@ const TopPillNav = () => {
               className={({ isActive }) =>
                 `flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 ${
                   isActive
-                    ? 'bg-primary text-primary-foreground shadow-lg scale-105 glow-primary'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-surface/50 hover:scale-102'
+                    ? 'bg-primary text-primary-foreground shadow-lg glow-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-surface/50'
                 }`
               }
             >
               <item.icon className="w-4 h-4" />
-              <span className="font-medium text-sm">{item.label}</span>
+              <span className="font-medium text-sm whitespace-nowrap">{item.label}</span>
             </NavLink>
           ))}
         </div>
