@@ -3,7 +3,6 @@ import { MessageSquare, ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import TopPillNav from '@/components/TopPillNav';
 import { dummyClubs } from '@/lib/api';
 
 const Clubs = () => {
@@ -11,7 +10,6 @@ const Clubs = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <TopPillNav />
 
       <div className="container mx-auto px-4 pt-24 pb-12 max-w-4xl">
         {/* Header */}

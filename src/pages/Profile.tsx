@@ -6,7 +6,6 @@ import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import TopPillNav from '@/components/TopPillNav';
 import { currentUser } from '@/lib/api';
 import { toast } from 'sonner';
 
@@ -34,7 +33,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <TopPillNav />
 
       <div className="container mx-auto px-4 pt-24 pb-12 max-w-3xl">
         {/* Header */}

@@ -12,7 +12,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import TopPillNav from '@/components/TopPillNav';
 import { dummyClubs, dummyMessages, dummyPolls, dummyEvents, dummyForms, api, currentUser } from '@/lib/api';
 import { toast } from 'sonner';
 import { ImageUploadDialog } from '@/components/ImageUploadDialog';
@@ -90,8 +89,6 @@ const ClubChat = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <TopPillNav />
-
       {/* Chat Header */}
       <div className="glass-elevated border-b border-border/50 mt-20 sticky top-20 z-40">
         <div className="container mx-auto px-4 py-3">

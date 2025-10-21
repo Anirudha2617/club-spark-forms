@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import TopPillNav from '@/components/TopPillNav';
 import { dummyClubs, api } from '@/lib/api';
 import { toast } from 'sonner';
 
@@ -27,7 +26,6 @@ const Discover = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <TopPillNav />
 
       <div className="container mx-auto px-4 pt-24 pb-12">
         {/* Header */}
